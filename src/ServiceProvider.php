@@ -2,7 +2,9 @@
 
 namespace Arrilot\SystemCheck;
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+
+class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Register the service provider.
@@ -14,6 +16,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/config/config.php', 'laravel-systemcheck'
         );
+
+        $this->app->singleton('command.system.check', function ($app) {
+            return new SystemCheckCommand($app['files'], $app['composer']);
+        });
+
+        $this->commands('command.system.check');
     }
 
     /**
