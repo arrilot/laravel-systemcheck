@@ -2,6 +2,7 @@
 
 namespace Arrilot\SystemCheck;
 
+use Arrilot\SystemCheck\Console\SystemCheckCommand;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -18,7 +19,7 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->singleton('command.system.check', function ($app) {
-            return new SystemCheckCommand($app['files'], $app['composer']);
+            return new SystemCheckCommand(new ChecksCollection($app));
         });
 
         $this->commands('command.system.check');
