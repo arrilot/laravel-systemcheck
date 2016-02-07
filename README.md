@@ -4,3 +4,5 @@
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/laravel-systemcheck/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/laravel-systemcheck/)
 
 #laravel-systemcheck (WIP)
+
+![Screenshot](https://i.gyazo.com/695ad5a3ae0c1c11b5c8dc0504f66bbe.png)
