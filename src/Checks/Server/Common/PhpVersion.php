@@ -4,7 +4,7 @@ namespace Arrilot\SystemCheck\Checks\Server\Common;
 
 use Arrilot\SystemCheck\Checks\BaseCheck;
 
-class PhpVersionCheck extends BaseCheck
+class PhpVersion extends BaseCheck
 {
     /**
      * The check description.
@@ -24,7 +24,7 @@ class PhpVersionCheck extends BaseCheck
         $current = phpversion();
 
         if (version_compare($current, $minimal, '<')) {
-            $this->error("Laravel requires PHP >= {$minimal}. Current version: '{$current}'");
+            $this->fail("Laravel requires PHP >= {$minimal}. Current version: '{$current}'");
         }
     }
 }

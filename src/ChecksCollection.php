@@ -9,38 +9,61 @@ class ChecksCollection
      *
      * @var \Illuminate\Contracts\Foundation\Application
      */
-    protected $laravel;
+    protected $app;
 
     /**
-     * The array of available checks.
+     * The array of environments that are considered as "production".
      *
      * @var array
      */
-    protected $checks = [
-        'Server' => [
-            'Production' => [
-                Checks\Server\Common\PhpVersionCheck::class,
-                Checks\Server\Common\PhpExtensionsCheck::class,
-            ],
-            'Dev' => [
-                Checks\Server\Common\PhpVersionCheck::class,
-                Checks\Server\Common\PhpExtensionsCheck::class,
-            ],
+    protected $productionEnvironments = [
+        'production',
+        'prod'
+    ];
+
+    /**
+     * The array of available server configuration checks.
+     *
+     * @var array
+     */
+    protected $serverChecks = [
+        'Production' => [
+            Checks\Server\Common\PhpVersion::class,
+            Checks\Server\Common\PhpExtensions::class,
         ],
-        'Laravel' => [
-            'Production' => [],
-            'Dev' => [],
+        'Dev' => [
+            Checks\Server\Common\PhpVersion::class,
+            Checks\Server\Common\PhpExtensions::class,
+        ],
+    ];
+
+    /**
+     * The array of available Laravel configuration checks.
+     *
+     * @var array
+     */
+    protected $laravelChecks = [
+        'Production' => [
+            Checks\Laravel\Production\ConfigurationIsCached::class,
+            Checks\Laravel\Production\RoutesAreCached::class,
+            Checks\Laravel\Production\AppDebug::class,
+            Checks\Laravel\Production\SessionDriver::class,
+        ],
+        'Dev' => [
+            Checks\Laravel\Dev\ConfigurationIsNotCached::class,
+            Checks\Laravel\Dev\RoutesAreNotCached::class,
+            Checks\Laravel\Production\AppDebug::class,
         ],
     ];
 
     /**
      * ChecksCollection constructor.
      *
-     * @param \Illuminate\Contracts\Foundation\Application $laravel
+     * @param \Illuminate\Contracts\Foundation\Application $app
      */
-    public function __construct($laravel)
+    public function __construct($app)
     {
-        $this->laravel = $laravel;
+        $this->app = $app;
     }
 
     /**
@@ -51,42 +74,45 @@ class ChecksCollection
      */
     public function getServerChecks($env = null)
     {
-        return $this->getChecksWithType('Server', $env);
+        return $this->serverChecks[$this->getModeByEnv($env)];
     }
 
     /**
-     * Get all laravel checks for a given environment.
+     * Get all Laravel checks for a given environment.
      *
      * @param string|null $env
      * @return array
      */
     public function getLaravelChecks($env = null)
     {
-        return $this->getChecksWithType('Laravel', $env);
-    }
-
-    /**
-     * @param string $type
-     * @param string|null $env
-     * @return array
-     */
-    protected function getChecksWithType($type, $env = null)
-    {
-        if (is_null($env)) {
-            $env = $this->laravel->environment();
-        }
-
-        return $this->checks[$type][$this->getModeByEnv($env)];
+        return $this->laravelChecks[$this->getModeByEnv($env)];
     }
 
     /**
      * Get checking mode by laravel environment.
      *
-     * @param string $env
+     * @param string|null $env
      * @return string
      */
-    protected function getModeByEnv($env)
+    protected function getModeByEnv($env = null)
     {
-        return in_array($env, ['production', 'prod']) ? 'Production' : 'Dev';
+        if (is_null($env)) {
+            $env = $this->app->environment();
+        }
+
+        return in_array($env, $this->productionEnvironments) ? 'Production' : 'Dev';
+    }
+
+    /**
+     * Setter for production environments.
+     *
+     * @param array|string $env
+     * @return $this
+     */
+    public function setProductionEnvironments($env)
+    {
+        $this->productionEnvironments = (array) $env;
+
+        return $this;
     }
 }

@@ -14,26 +14,14 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/config/config.php', 'laravel-systemcheck'
-        );
+        $this->app->singleton('system.checks', function($app) {
+            return new ChecksCollection($app);
+        });
 
         $this->app->singleton('command.system.check', function ($app) {
-            return new SystemCheckCommand(new ChecksCollection($app));
+            return new SystemCheckCommand($app->make('system.checks'));
         });
 
         $this->commands('command.system.check');
-    }
-
-    /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->publishes([
-            __DIR__.'/config/config.php' => config_path('laravel-systemcheck.php'),
-        ]);
     }
 }

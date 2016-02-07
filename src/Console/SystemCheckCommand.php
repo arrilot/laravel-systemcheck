@@ -31,6 +31,13 @@ class SystemCheckCommand extends Command
     protected $checks;
 
     /**
+     * The table headers for the command.
+     *
+     * @var array
+     */
+    protected $headers = ['Check', 'Result', 'Comment'];
+
+    /**
      * Constructor.
      *
      * @param ChecksCollection $checks
@@ -49,7 +56,8 @@ class SystemCheckCommand extends Command
      */
     public function fire()
     {
-        $this->info("Current environment: {$this->laravel->environment()}");
+        $this->output->writeln("<info>Current environment:</info> <comment>{$this->laravel->environment()}</comment>");
+        $this->output->newLine();
 
         $this->performServerChecks();
         $this->performLaravelChecks();
@@ -62,9 +70,13 @@ class SystemCheckCommand extends Command
     {
         $this->info('Server configuration checks:');
 
+        $rows = [];
+
         foreach ($this->checks->getServerChecks() as $check) {
-            $this->performCheck($check);
+            $rows[] = $this->performCheck($check);
         }
+
+        $this->displayRows($rows);
     }
 
     /**
@@ -74,26 +86,55 @@ class SystemCheckCommand extends Command
     {
         $this->info('Laravel configuration checks:');
 
+        $rows = [];
+
         foreach ($this->checks->getLaravelChecks() as $check) {
-            $this->performCheck($check);
+            $rows[] = $this->performCheck($check);
         }
+
+        $this->displayRows($rows);
     }
 
     /**
      * Builds a check object and performs a check.
      *
      * @param string $class
+     *
+     * @return array
      */
     protected function performCheck($class)
     {
-        $check = new $class();
+        $check = new $class($this->laravel);
+
+        $result = '<info>Ok</info>';
+        $comment = '';
 
         try {
             $check->perform();
         } catch (CheckFailedException $e) {
-            $this->line($e->getMessage());
+            $result = '<error>Fail</error>';
+            $comment = $e->getMessage();
         } catch (CheckSkippedException $e) {
-            $this->line($e->getMessage());
+            $result = '<comment>Skipped</comment>';
+            $comment = $e->getMessage();
         }
+
+        return [
+            'Check'   => $check->getDescription(),
+            'Result'  => $result,
+            'Comment' => $comment,
+        ];
+    }
+
+    /**
+     * Display all given rows as a table.
+     *
+     * @param array $rows
+     */
+    protected function displayRows(array $rows)
+    {
+        $this->table($this->headers, $rows);
+
+        $this->output->newLine();
     }
 }

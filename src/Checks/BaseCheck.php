@@ -15,6 +15,23 @@ abstract class BaseCheck
     protected $description;
 
     /**
+     * The Laravel application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     */
+    protected $app;
+
+    /**
+     * BaseCheck constructor.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     */
+    public function __construct($app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * Perform the check.
      *
      * @return void
@@ -27,7 +44,7 @@ abstract class BaseCheck
      * @param string $message
      * @throws CheckFailedException
      */
-    public function error($message = 'An error occurred during check.')
+    public function fail($message = 'An error occurred during check.')
     {
         throw new CheckFailedException($message);
     }
@@ -41,5 +58,15 @@ abstract class BaseCheck
     public function skip($message = '')
     {
         throw new CheckSkippedException($message);
+    }
+
+    /**
+     * Getter for description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+       return $this->description;
     }
 }

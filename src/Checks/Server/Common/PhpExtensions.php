@@ -4,7 +4,7 @@ namespace Arrilot\SystemCheck\Checks\Server\Common;
 
 use Arrilot\SystemCheck\Checks\BaseCheck;
 
-class PhpExtensionsCheck extends BaseCheck
+class PhpExtensions extends BaseCheck
 {
     /**
      * The check description.
@@ -34,7 +34,7 @@ class PhpExtensionsCheck extends BaseCheck
     {
         foreach ($this->extensions as $extension) {
             if (! extension_loaded($extension)) {
-                $this->error("PHP extension '{$extension}' is missing from your system.");
+                $this->fail("PHP extension '{$extension}' is missing from your system.");
             }
         }
     }
