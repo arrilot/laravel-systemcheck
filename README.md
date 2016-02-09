@@ -1,3 +1,3 @@
 #laravel-systemcheck (WIP)
 
-![Screenshot](https://i.gyazo.com/c77437f151fd6a2689c422ff7ca14c51.png)
+![Screenshot](https://i.gyazo.com/a851755f235168bf4dd71bd0be4f8d22.png)
