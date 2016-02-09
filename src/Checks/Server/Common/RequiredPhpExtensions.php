@@ -4,14 +4,14 @@ namespace Arrilot\SystemCheck\Checks\Server\Common;
 
 use Arrilot\SystemCheck\Checks\BaseCheck;
 
-class PhpExtensions extends BaseCheck
+class RequiredPhpExtensions extends BaseCheck
 {
     /**
      * The check description.
      *
      * @var string
      */
-    protected $description = 'PHP extensions';
+    protected $description = 'Required PHP extensions';
 
     /**
      * Required extensions.

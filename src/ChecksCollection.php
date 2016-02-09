@@ -29,11 +29,13 @@ class ChecksCollection
     protected $serverChecks = [
         'Production' => [
             Checks\Server\Common\PhpVersion::class,
-            Checks\Server\Common\PhpExtensions::class,
+            Checks\Server\Common\RequiredPhpExtensions::class,
+            Checks\Server\Production\XdebugIsNotLoaded::class,
         ],
         'Dev' => [
             Checks\Server\Common\PhpVersion::class,
-            Checks\Server\Common\PhpExtensions::class,
+            Checks\Server\Common\RequiredPhpExtensions::class,
+            Checks\Server\Dev\FunctionNestingLevel::class,
         ],
     ];
 
@@ -52,7 +54,7 @@ class ChecksCollection
         'Dev' => [
             Checks\Laravel\Dev\ConfigurationIsNotCached::class,
             Checks\Laravel\Dev\RoutesAreNotCached::class,
-            Checks\Laravel\Production\AppDebug::class,
+            Checks\Laravel\Dev\AppDebug::class,
         ],
     ];
 
