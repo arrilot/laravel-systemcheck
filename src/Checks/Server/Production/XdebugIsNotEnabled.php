@@ -4,14 +4,14 @@ namespace Arrilot\SystemCheck\Checks\Server\Production;
 
 use Arrilot\SystemCheck\Checks\BaseCheck;
 
-class XdebugIsNotLoaded extends BaseCheck
+class XdebugIsNotEnabled extends BaseCheck
 {
     /**
      * The check description.
      *
      * @var string
      */
-    protected $description = 'Xdebug is not loaded';
+    protected $description = 'Xdebug is not enabled';
 
     /**
      * Perform the check.
@@ -20,8 +20,8 @@ class XdebugIsNotLoaded extends BaseCheck
      */
     public function perform()
     {
-        if (extension_loaded('xdebug')) {
-            $this->fail("Xdebug extension should not be loaded in production");
+        if (ini_get('xdebug.profiler_enabled')) {
+            $this->fail("Xdebug extension should not be enabled in production");
         }
     }
 }

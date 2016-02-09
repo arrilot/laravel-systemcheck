@@ -30,7 +30,7 @@ class ChecksCollection
         'Production' => [
             Checks\Server\Common\PhpVersion::class,
             Checks\Server\Common\RequiredPhpExtensions::class,
-            Checks\Server\Production\XdebugIsNotLoaded::class,
+            Checks\Server\Production\XdebugIsNotEnabled::class,
         ],
         'Dev' => [
             Checks\Server\Common\PhpVersion::class,
