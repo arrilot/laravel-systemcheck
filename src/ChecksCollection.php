@@ -30,7 +30,7 @@ class ChecksCollection
         'Production' => [
             Checks\Server\Common\PhpVersion::class,
             Checks\Server\Common\RequiredPhpExtensions::class,
-            Checks\Server\Production\XdebugIsNotEnabled::class,
+            Checks\Server\Production\XdebugIsDisabled::class,
         ],
         'Dev' => [
             Checks\Server\Common\PhpVersion::class,
@@ -46,12 +46,14 @@ class ChecksCollection
      */
     protected $laravelChecks = [
         'Production' => [
+            Checks\Laravel\Production\OptimizedClassLoaderExists::class,
             Checks\Laravel\Production\ConfigurationIsCached::class,
             Checks\Laravel\Production\RoutesAreCached::class,
             Checks\Laravel\Production\AppDebug::class,
             Checks\Laravel\Production\SessionDriver::class,
         ],
         'Dev' => [
+            Checks\Laravel\Dev\OptimizedClassLoaderDoesNotExist::class,
             Checks\Laravel\Dev\ConfigurationIsNotCached::class,
             Checks\Laravel\Dev\RoutesAreNotCached::class,
             Checks\Laravel\Dev\AppDebug::class,
