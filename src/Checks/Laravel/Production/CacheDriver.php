@@ -4,14 +4,14 @@ namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
 use Arrilot\SystemCheck\Checks\BaseCheck;
 
-class SessionDriver extends BaseCheck
+class CacheDriver extends BaseCheck
 {
     /**
      * The check description.
      *
      * @var string
      */
-    protected $description = 'session.driver';
+    protected $description = 'cache.default';
 
     /**
      * Perform the check.
@@ -20,14 +20,14 @@ class SessionDriver extends BaseCheck
      */
     public function perform()
     {
-        $driver = $this->app['config']['session.driver'];
+        $driver = $this->app['config']['cache.default'];
 
         if ($driver === 'array') {
-            $this->fail("session.driver must not be set to 'array' in production");
+            $this->fail("Default cache driver must not be set to 'array' in production");
         }
 
         if ($driver === 'file') {
-            $this->note('File session driver is not recommended for production');
+            $this->note('File cache driver is not recommended for production');
         }
     }
 }

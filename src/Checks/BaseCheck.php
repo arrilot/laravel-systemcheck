@@ -2,8 +2,8 @@
 
 namespace Arrilot\SystemCheck\Checks;
 
-use Arrilot\SystemCheck\Exceptions\CheckFailedException;
-use Arrilot\SystemCheck\Exceptions\CheckSkippedException;
+use Arrilot\SystemCheck\Exceptions\FailException;
+use Arrilot\SystemCheck\Exceptions\NoteException;
 
 abstract class BaseCheck
 {
@@ -39,25 +39,25 @@ abstract class BaseCheck
     abstract public function perform();
 
     /**
-     * Stop the check with error.
+     * Stop the check with an error.
      *
      * @param string $message
-     * @throws CheckFailedException
+     * @throws FailException
      */
-    public function fail($message = 'An error occurred during check.')
+    public function fail($message)
     {
-        throw new CheckFailedException($message);
+        throw new FailException($message);
     }
 
     /**
-     * Skip the check.
+     * Stop the check with a note.
      *
      * @param string $message
-     * @throws CheckSkippedException
+     * @throws NoteException
      */
-    public function skip($message = '')
+    public function note($message)
     {
-        throw new CheckSkippedException($message);
+        throw new NoteException($message);
     }
 
     /**

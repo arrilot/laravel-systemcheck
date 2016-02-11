@@ -4,7 +4,7 @@ namespace Arrilot\SystemCheck\Exceptions;
 
 use Exception;
 
-class CheckSkippedException extends Exception
+class FailException extends Exception
 {
     //
 }

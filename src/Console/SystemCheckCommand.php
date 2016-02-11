@@ -3,8 +3,8 @@
 namespace Arrilot\SystemCheck\Console;
 
 use Arrilot\SystemCheck\ChecksCollection;
-use Arrilot\SystemCheck\Exceptions\CheckFailedException;
-use Arrilot\SystemCheck\Exceptions\CheckSkippedException;
+use Arrilot\SystemCheck\Exceptions\FailException;
+use Arrilot\SystemCheck\Exceptions\NoteException;
 use Illuminate\Console\Command;
 
 class SystemCheckCommand extends Command
@@ -111,11 +111,11 @@ class SystemCheckCommand extends Command
 
         try {
             $check->perform();
-        } catch (CheckFailedException $e) {
+        } catch (FailException $e) {
             $result = '<error>Fail</error>';
             $comment = $e->getMessage();
-        } catch (CheckSkippedException $e) {
-            $result = '<comment>Skipped</comment>';
+        } catch (NoteException $e) {
+            $result = '<comment>Note</comment>';
             $comment = $e->getMessage();
         }
 

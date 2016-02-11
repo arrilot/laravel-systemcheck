@@ -49,13 +49,16 @@ class ChecksCollection
             Checks\Laravel\Production\OptimizedClassLoaderExists::class,
             Checks\Laravel\Production\ConfigurationIsCached::class,
             Checks\Laravel\Production\RoutesAreCached::class,
+            Checks\Laravel\Common\AppKey::class,
             Checks\Laravel\Production\AppDebug::class,
             Checks\Laravel\Production\SessionDriver::class,
+            Checks\Laravel\Production\CacheDriver::class,
         ],
         'Dev' => [
             Checks\Laravel\Dev\OptimizedClassLoaderDoesNotExist::class,
             Checks\Laravel\Dev\ConfigurationIsNotCached::class,
             Checks\Laravel\Dev\RoutesAreNotCached::class,
+            Checks\Laravel\Common\AppKey::class,
             Checks\Laravel\Dev\AppDebug::class,
         ],
     ];
