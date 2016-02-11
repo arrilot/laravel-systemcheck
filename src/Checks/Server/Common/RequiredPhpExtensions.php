@@ -34,7 +34,7 @@ class RequiredPhpExtensions extends Check
     public function perform()
     {
         foreach ($this->extensions as $extension) {
-            if (! extension_loaded($extension)) {
+            if (!extension_loaded($extension)) {
                 return $this->fail("PHP extension '{$extension}' is missing from your system.");
             }
         }

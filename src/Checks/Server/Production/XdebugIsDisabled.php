@@ -22,7 +22,7 @@ class XdebugIsDisabled extends Check
     public function perform()
     {
         if (extension_loaded('xdebug')) {
-            return $this->fail("Xdebug extension should not be loaded in production");
+            return $this->fail('Xdebug extension should not be loaded in production');
         }
 
         return $this->ok();

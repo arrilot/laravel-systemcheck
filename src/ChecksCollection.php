@@ -18,7 +18,7 @@ class ChecksCollection
      */
     protected $productionEnvironments = [
         'production',
-        'prod'
+        'prod',
     ];
 
     /**
@@ -77,6 +77,7 @@ class ChecksCollection
      * Get all server checks for a given environment.
      *
      * @param string|null $env
+     *
      * @return array
      */
     public function getServerChecks($env = null)
@@ -88,6 +89,7 @@ class ChecksCollection
      * Get all Laravel checks for a given environment.
      *
      * @param string|null $env
+     *
      * @return array
      */
     public function getLaravelChecks($env = null)
@@ -99,6 +101,7 @@ class ChecksCollection
      * Get checking mode by laravel environment.
      *
      * @param string|null $env
+     *
      * @return string
      */
     protected function getModeByEnv($env = null)
@@ -114,6 +117,7 @@ class ChecksCollection
      * Setter for production environments.
      *
      * @param array|string $env
+     *
      * @return $this
      */
     public function setProductionEnvironments($env)

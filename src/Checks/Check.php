@@ -45,6 +45,7 @@ abstract class Check
      * Stop the check because it passed.
      *
      * @param string $message
+     *
      * @return Result
      */
     public function ok($message = '')
@@ -56,6 +57,7 @@ abstract class Check
      * Stop the check with a note.
      *
      * @param string $message
+     *
      * @return Result
      */
     public function note($message = '')
@@ -67,6 +69,7 @@ abstract class Check
      * Stop the check with an error.
      *
      * @param string $message
+     *
      * @return Result
      */
     public function fail($message = '')
@@ -78,6 +81,7 @@ abstract class Check
      * Skip the check.
      *
      * @param string $message
+     *
      * @return Result
      */
     public function skip($message = '')
@@ -92,6 +96,6 @@ abstract class Check
      */
     public function getDescription()
     {
-       return $this->description;
+        return $this->description;
     }
 }

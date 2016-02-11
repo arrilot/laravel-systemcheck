@@ -2,8 +2,8 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Dev;
 
-use Arrilot\SystemCheck\Results\Result;
 use Arrilot\SystemCheck\Checks\Check;
+use Arrilot\SystemCheck\Results\Result;
 
 class RoutesAreNotCached extends Check
 {

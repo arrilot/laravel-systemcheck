@@ -2,8 +2,8 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Results\Result;
 use Arrilot\SystemCheck\Checks\Check;
+use Arrilot\SystemCheck\Results\Result;
 
 class ConfigurationIsCached extends Check
 {
@@ -21,7 +21,7 @@ class ConfigurationIsCached extends Check
      */
     public function perform()
     {
-        if (! $this->app->configurationIsCached()) {
+        if (!$this->app->configurationIsCached()) {
             return $this->fail('Configuration should be cached in production');
         }
 

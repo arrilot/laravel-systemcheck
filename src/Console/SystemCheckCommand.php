@@ -57,7 +57,7 @@ class SystemCheckCommand extends Command
     {
         $env = is_null($this->option('env'))
             ? $this->laravel->environment()
-            : $this->option('env') ;
+            : $this->option('env');
 
         $this->output->writeln("<info>Performing checks for environment:</info> <comment>{$env}</comment>");
         $this->output->newLine();
@@ -70,6 +70,7 @@ class SystemCheckCommand extends Command
      * Perform server configuration checks.
      *
      * @param string $env
+     *
      * @return void
      */
     protected function performServerChecks($env)
@@ -83,6 +84,7 @@ class SystemCheckCommand extends Command
      * Perform laravel configuration checks.
      *
      * @param string $env
+     *
      * @return void
      */
     protected function performLaravelChecks($env)
@@ -96,6 +98,7 @@ class SystemCheckCommand extends Command
      * Perform configuration checks.
      *
      * @param array $checks
+     *
      * @return void
      */
     protected function performChecks($checks)
@@ -115,6 +118,7 @@ class SystemCheckCommand extends Command
      * Build a check object and perform a check.
      *
      * @param string $class
+     *
      * @return array
      */
     protected function performCheck($class)
@@ -149,6 +153,7 @@ class SystemCheckCommand extends Command
      * Add some styling to status.
      *
      * @param string $status
+     *
      * @return string
      */
     protected function styleStatus($status)

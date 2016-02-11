@@ -14,7 +14,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('system.checks', function($app) {
+        $this->app->singleton('system.checks', function ($app) {
             return new ChecksCollection($app);
         });
 
