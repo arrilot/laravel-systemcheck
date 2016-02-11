@@ -2,8 +2,8 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Results\Result;
 use Arrilot\SystemCheck\Checks\Check;
+use Arrilot\SystemCheck\Results\Result;
 
 class SessionDriver extends Check
 {

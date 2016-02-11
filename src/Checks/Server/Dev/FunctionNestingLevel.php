@@ -21,12 +21,12 @@ class FunctionNestingLevel extends Check
      */
     public function perform()
     {
-        if (! extension_loaded('xdebug')) {
+        if (!extension_loaded('xdebug')) {
             $this->skip();
         }
 
         if (ini_get('xdebug.max_nesting_level') < 256) {
-            return $this->fail("xdebug.max_nesting_level should be >= 256");
+            return $this->fail('xdebug.max_nesting_level should be >= 256');
         }
 
         return $this->ok();
