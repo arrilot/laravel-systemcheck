@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Server\Dev;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\CheckResult;
+use Arrilot\SystemCheck\Checks\Check;
 
-class FunctionNestingLevel extends BaseCheck
+class FunctionNestingLevel extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,18 @@ class FunctionNestingLevel extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return CheckResult
      */
     public function perform()
     {
-        if (ini_get('xdebug.max_nesting_level') && ini_get('xdebug.max_nesting_level') < 256) {
-            $this->fail("xdebug.max_nesting_level should be >= 256");
+        if (! extension_loaded('xdebug')) {
+            $this->skip();
         }
+
+        if (ini_get('xdebug.max_nesting_level') < 256) {
+            return $this->fail("xdebug.max_nesting_level should be >= 256");
+        }
+
+        return $this->ok();
     }
 }

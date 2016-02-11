@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Common;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class AppKey extends BaseCheck
+class AppKey extends Check
 {
     /**
      * The check description.
@@ -16,18 +17,20 @@ class AppKey extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         $key = $this->app['config']['app.key'];
 
         if (! $key) {
-            $this->fail("app.key must be set");
+            return $this->fail("app.key must be set");
         }
 
         if (strlen($key) !== 32) {
-            $this->fail("app.key must be a 32 character string");
+            return $this->fail("app.key must be a 32 character string");
         }
+
+        return $this->ok();
     }
 }

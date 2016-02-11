@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Server\Production;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\CheckResult;
+use Arrilot\SystemCheck\Checks\Check;
 
-class XdebugIsDisabled extends BaseCheck
+class XdebugIsDisabled extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,14 @@ class XdebugIsDisabled extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return CheckResult
      */
     public function perform()
     {
         if (extension_loaded('xdebug')) {
-            $this->fail("Xdebug extension should not be loaded in production");
+            return $this->fail("Xdebug extension should not be loaded in production");
         }
+
+        return $this->ok();
     }
 }

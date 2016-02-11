@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Dev;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class ConfigurationIsNotCached extends BaseCheck
+class ConfigurationIsNotCached extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,14 @@ class ConfigurationIsNotCached extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         if ($this->app->configurationIsCached()) {
-            $this->fail('Configuration should not be cached in development');
+            return $this->fail('Configuration should not be cached in development');
         }
+
+        return $this->ok();
     }
 }

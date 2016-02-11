@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class RoutesAreCached extends BaseCheck
+class RoutesAreCached extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,14 @@ class RoutesAreCached extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         if (! $this->app->routesAreCached()) {
-            $this->fail('Routes should be cached in production');
+            return $this->fail('Routes should be cached in production');
         }
+
+        return $this->ok();
     }
 }

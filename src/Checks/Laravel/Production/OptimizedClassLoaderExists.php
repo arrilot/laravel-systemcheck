@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class OptimizedClassLoaderExists extends BaseCheck
+class OptimizedClassLoaderExists extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,14 @@ class OptimizedClassLoaderExists extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         if (! file_exists($this->app->getCachedCompilePath())) {
-            $this->fail("Run 'php artisan optimize'");
+            return $this->fail("Run 'php artisan optimize'");
         }
+
+        return $this->ok();
     }
 }

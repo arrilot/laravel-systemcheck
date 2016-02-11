@@ -3,9 +3,8 @@
 namespace Arrilot\SystemCheck\Console;
 
 use Arrilot\SystemCheck\ChecksCollection;
-use Arrilot\SystemCheck\Exceptions\FailException;
-use Arrilot\SystemCheck\Exceptions\NoteException;
 use Illuminate\Console\Command;
+use InvalidArgumentException;
 
 class SystemCheckCommand extends Command
 {
@@ -56,73 +55,81 @@ class SystemCheckCommand extends Command
      */
     public function fire()
     {
-        $this->output->writeln("<info>Current environment:</info> <comment>{$this->laravel->environment()}</comment>");
+        $env = is_null($this->option('env'))
+            ? $this->laravel->environment()
+            : $this->option('env') ;
+
+        $this->output->writeln("<info>Performing checks for environment:</info> <comment>{$env}</comment>");
         $this->output->newLine();
 
-        $this->performServerChecks();
-        $this->performLaravelChecks();
+        $this->performServerChecks($env);
+        $this->performLaravelChecks($env);
     }
 
     /**
      * Perform server configuration checks.
+     *
+     * @param string $env
+     * @return void
      */
-    protected function performServerChecks()
+    protected function performServerChecks($env)
     {
         $this->info('Server configuration checks:');
 
-        $rows = [];
-
-        foreach ($this->checks->getServerChecks() as $check) {
-            $rows[] = $this->performCheck($check);
-        }
-
-        $this->displayRows($rows);
+        $this->performChecks($this->checks->getServerChecks($env));
     }
 
     /**
      * Perform laravel configuration checks.
+     *
+     * @param string $env
+     * @return void
      */
-    protected function performLaravelChecks()
+    protected function performLaravelChecks($env)
     {
         $this->info('Laravel configuration checks:');
 
+        $this->performChecks($this->checks->getLaravelChecks($env));
+    }
+
+    /**
+     * Perform configuration checks.
+     *
+     * @param array $checks
+     * @return void
+     */
+    protected function performChecks($checks)
+    {
         $rows = [];
 
-        foreach ($this->checks->getLaravelChecks() as $check) {
-            $rows[] = $this->performCheck($check);
+        foreach ($checks as $check) {
+            if ($row = $this->performCheck($check)) {
+                $rows[] = $row;
+            }
         }
 
         $this->displayRows($rows);
     }
 
     /**
-     * Builds a check object and performs a check.
+     * Build a check object and perform a check.
      *
      * @param string $class
-     *
      * @return array
      */
     protected function performCheck($class)
     {
         $check = new $class($this->laravel);
+        $result = $check->perform();
 
-        $result = '<info>Ok</info>';
-        $comment = '';
-
-        try {
-            $check->perform();
-        } catch (FailException $e) {
-            $result = '<error>Fail</error>';
-            $comment = $e->getMessage();
-        } catch (NoteException $e) {
-            $result = '<comment>Note</comment>';
-            $comment = $e->getMessage();
+        if ($result->status == 'Skip') {
+            return [];
         }
 
         return [
             'Check'   => $check->getDescription(),
-            'Result'  => $result,
-            'Comment' => $comment,
+            'Result'  => $this->styleStatus($result->status),
+            'Comment' => $result->comment,
         ];
     }
 
@@ -136,5 +143,28 @@ class SystemCheckCommand extends Command
         $this->table($this->headers, $rows);
 
         $this->output->newLine();
+    }
+
+    /**
+     * Add some styling to status.
+     *
+     * @param string $status
+     * @return string
+     */
+    protected function styleStatus($status)
+    {
+        if ($status === 'Ok') {
+            return '<info>Ok</info>';
+        }
+
+        if ($status === 'Note') {
+            return '<comment>Note</comment>';
+        }
+
+        if ($status === 'Fail') {
+            return '<error>Note</error>';
+        }
+
+        throw new InvalidArgumentException("Check can not return status '{$status}'");
     }
 }

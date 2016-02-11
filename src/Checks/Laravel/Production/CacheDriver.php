@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class CacheDriver extends BaseCheck
+class CacheDriver extends Check
 {
     /**
      * The check description.
@@ -16,18 +17,20 @@ class CacheDriver extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         $driver = $this->app['config']['cache.default'];
 
         if ($driver === 'array') {
-            $this->fail("Default cache driver must not be set to 'array' in production");
+            return $this->fail("Default cache driver must not be set to 'array' in production");
         }
 
         if ($driver === 'file') {
-            $this->note('File cache driver is not recommended for production');
+            return $this->note('File cache driver is not recommended for production');
         }
+
+        return $this->ok();
     }
 }

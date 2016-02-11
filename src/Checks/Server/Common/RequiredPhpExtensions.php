@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Server\Common;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\CheckResult;
+use Arrilot\SystemCheck\Checks\Check;
 
-class RequiredPhpExtensions extends BaseCheck
+class RequiredPhpExtensions extends Check
 {
     /**
      * The check description.
@@ -28,14 +29,16 @@ class RequiredPhpExtensions extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return CheckResult
      */
     public function perform()
     {
         foreach ($this->extensions as $extension) {
             if (! extension_loaded($extension)) {
-                $this->fail("PHP extension '{$extension}' is missing from your system.");
+                return $this->fail("PHP extension '{$extension}' is missing from your system.");
             }
         }
+
+        return $this->ok();
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
-use Arrilot\SystemCheck\Checks\BaseCheck;
+use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\Checks\Check;
 
-class AppDebug extends BaseCheck
+class AppDebug extends Check
 {
     /**
      * The check description.
@@ -16,12 +17,14 @@ class AppDebug extends BaseCheck
     /**
      * Perform the check.
      *
-     * @return void
+     * @return Result
      */
     public function perform()
     {
         if ($this->app['config']['app.debug']) {
-            $this->fail("app.debug should not be set to 'true' in production");
+            return $this->fail("app.debug should not be set to 'true' in production");
         }
+
+        return $this->ok();
     }
 }
