@@ -22,10 +22,16 @@ class PhpVersion extends Check
     public function perform()
     {
         $minimal = '5.5.9';
+        $recommended = '7.0.7';
+
         $current = phpversion();
 
         if (version_compare($current, $minimal, '<')) {
             return $this->fail("Laravel requires PHP >= {$minimal}. Current version: '{$current}'");
+        }
+
+        if (version_compare($current, $recommended, '<')) {
+            return $this->note("Recommended php version: >= {$recommended}. Current version: '{$current}'");
         }
 
         return $this->ok();

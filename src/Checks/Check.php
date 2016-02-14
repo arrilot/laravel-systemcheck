@@ -2,11 +2,7 @@
 
 namespace Arrilot\SystemCheck\Checks;
 
-use Arrilot\SystemCheck\Results\FailResult;
-use Arrilot\SystemCheck\Results\NoteResult;
-use Arrilot\SystemCheck\Results\OkResult;
-use Arrilot\SystemCheck\Results\Result;
-use Arrilot\SystemCheck\Results\SkipResult;
+use Arrilot\SystemCheck\CheckResult;
 
 abstract class Check
 {
@@ -37,7 +33,7 @@ abstract class Check
     /**
      * Perform the check.
      *
-     * @return Result
+     * @return CheckResult
      */
     abstract public function perform();
 
@@ -46,11 +42,11 @@ abstract class Check
      *
      * @param string $message
      *
-     * @return Result
+     * @return CheckResult
      */
     public function ok($message = '')
     {
-        return new OkResult($message);
+        return new CheckResult('Ok', $message);
     }
 
     /**
@@ -58,11 +54,11 @@ abstract class Check
      *
      * @param string $message
      *
-     * @return Result
+     * @return CheckResult
      */
     public function note($message = '')
     {
-        return new NoteResult($message);
+        return new CheckResult('Note', $message);
     }
 
     /**
@@ -70,11 +66,11 @@ abstract class Check
      *
      * @param string $message
      *
-     * @return Result
+     * @return CheckResult
      */
     public function fail($message = '')
     {
-        return new FailResult($message);
+        return new CheckResult('Fail', $message);
     }
 
     /**
@@ -82,11 +78,11 @@ abstract class Check
      *
      * @param string $message
      *
-     * @return Result
+     * @return CheckResult
      */
     public function skip($message = '')
     {
-        return new SkipResult($message);
+        return new CheckResult('Skip', $message);
     }
 
     /**
