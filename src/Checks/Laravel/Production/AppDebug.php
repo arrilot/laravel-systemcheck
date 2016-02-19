@@ -22,7 +22,7 @@ class AppDebug extends Check
     public function perform()
     {
         if ($this->app['config']['app.debug']) {
-            return $this->fail("app.debug should not be set to 'true' in production");
+            return $this->fail("app.debug must not be set to 'true' in production");
         }
 
         return $this->ok();

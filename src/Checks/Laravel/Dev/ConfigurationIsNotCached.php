@@ -22,7 +22,7 @@ class ConfigurationIsNotCached extends Check
     public function perform()
     {
         if ($this->app->configurationIsCached()) {
-            return $this->fail('Configuration should not be cached in development');
+            return $this->fail('Configuration must not be cached in development');
         }
 
         return $this->ok();

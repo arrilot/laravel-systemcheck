@@ -167,7 +167,7 @@ class SystemCheckCommand extends Command
         }
 
         if ($status === 'Fail') {
-            return '<error>Note</error>';
+            return '<error>Fail</error>';
         }
 
         throw new InvalidArgumentException("Check can not return status '{$status}'");
