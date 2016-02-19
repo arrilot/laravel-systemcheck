@@ -3,7 +3,7 @@
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
 use Arrilot\SystemCheck\Checks\Check;
-use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\CheckResult;
 
 class AppDebug extends Check
 {
@@ -17,7 +17,7 @@ class AppDebug extends Check
     /**
      * Perform the check.
      *
-     * @return Result
+     * @return CheckResult
      */
     public function perform()
     {

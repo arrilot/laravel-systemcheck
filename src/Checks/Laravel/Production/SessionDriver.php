@@ -3,7 +3,7 @@
 namespace Arrilot\SystemCheck\Checks\Laravel\Production;
 
 use Arrilot\SystemCheck\Checks\Check;
-use Arrilot\SystemCheck\Results\Result;
+use Arrilot\SystemCheck\CheckResult;
 
 class SessionDriver extends Check
 {
@@ -17,14 +17,14 @@ class SessionDriver extends Check
     /**
      * Perform the check.
      *
-     * @return Result
+     * @return CheckResult
      */
     public function perform()
     {
         $driver = $this->app['config']['session.driver'];
 
         if ($driver === 'array') {
-            return $this->fail("session.driver must not be set to 'array' in production");
+            return $this->fail("'session.driver' must not be set to 'array' in production");
         }
 
         if ($driver === 'file') {
