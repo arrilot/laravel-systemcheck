@@ -12,7 +12,7 @@ class XdebugIsDisabled extends Check
      *
      * @var string
      */
-    protected $description = 'Xdebug is disabled';
+    protected $description = 'Xdebug is not loaded';
 
     /**
      * Perform the check.

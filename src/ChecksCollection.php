@@ -53,6 +53,7 @@ class ChecksCollection
             Checks\Laravel\Production\AppDebug::class,
             Checks\Laravel\Production\CacheDriver::class,
             Checks\Laravel\Production\MailDriver::class,
+            Checks\Laravel\Production\MailPretend::class,
             Checks\Laravel\Production\QueueDriver::class,
             Checks\Laravel\Production\SessionDriver::class,
         ],
