@@ -2,8 +2,8 @@
 
 namespace Arrilot\SystemCheck\Checks\Laravel\Common;
 
-use Arrilot\SystemCheck\Checks\Check;
 use Arrilot\SystemCheck\CheckResult;
+use Arrilot\SystemCheck\Checks\Check;
 
 class AppKey extends Check
 {

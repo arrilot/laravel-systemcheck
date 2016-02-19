@@ -40,7 +40,7 @@ class CheckResult
      */
     public function __construct($status, $comment)
     {
-        if (! in_array($status, $this->possibleStatuses)) {
+        if (!in_array($status, $this->possibleStatuses)) {
             throw new InvalidArgumentException("Check result can not have status '{$status}'");
         }
 
