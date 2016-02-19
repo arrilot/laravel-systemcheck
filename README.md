@@ -25,8 +25,10 @@
 
 This package provides a `php artisan system:check` command which performs a bunch of checks and prints.
 There are basically two modes.
+
 1. production
 2. dev
+
 Each mode has its own collection of checks.
 
 The mode is determined automatically according to APP_ENV.
