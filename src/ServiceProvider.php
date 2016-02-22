@@ -14,12 +14,12 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('system.checks', function ($app) {
+        $this->app->singleton(ChecksCollection::class, function ($app) {
             return new ChecksCollection($app);
         });
 
         $this->app->singleton('command.system.check', function ($app) {
-            return new SystemCheckCommand($app->make('system.checks'));
+            return new SystemCheckCommand($app->make(ChecksCollection::class));
         });
 
         $this->commands('command.system.check');

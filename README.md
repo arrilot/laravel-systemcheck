@@ -43,6 +43,6 @@ By default the package treats the following environments as "production":
 
 You can override them by calling
 ```php
-app()->make('system.checks')->setProductionEnvironments(['prod1', 'prod2']);
+app()->make(ChecksCollection::class)->setProductionEnvironments(['prod1', 'prod2']);
 ```
 in your `AppServiceProvider`
