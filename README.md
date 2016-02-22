@@ -23,8 +23,11 @@
 
 ## Usage
 
-This package provides a `php artisan system:check` command which performs a bunch of checks and prints.
-There are basically two modes.
+This package provides a `php artisan system:check` command that performs a bunch of checks and prints results.
+
+![screenshot](https://i.gyazo.com/1fb26f1eee971542accbc13eb3fdb49c.png)
+
+There are two modes.
 
 1. production
 2. dev
