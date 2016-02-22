@@ -7,7 +7,7 @@ use Arrilot\SystemCheck\ChecksCollection;
 use PHPUnit_Framework_TestCase;
 use StdClass;
 
-class CheckCollectionTest extends PHPUnit_Framework_TestCase
+class ChecksCollectionTest extends PHPUnit_Framework_TestCase
 {
     protected function collection()
     {
