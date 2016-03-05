@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/arrilot/laravel-systemcheck/master.svg?style=flat)](https://travis-ci.org/arrilot/laravel-systemcheck)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/laravel-systemcheck/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/laravel-systemcheck/)
 
-# Laravel System Check (WIP)
+# Laravel System Check
 
 *Check your server and application configuration according to APP_ENV*
 
