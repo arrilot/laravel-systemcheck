@@ -67,6 +67,13 @@ class SystemCheckCommand extends Command
     }
 
     /**
+     * laravel 5.* support
+     */
+    public function handle() {
+        $this->fire();
+    }
+
+    /**
      * Perform server configuration checks.
      *
      * @param string $env

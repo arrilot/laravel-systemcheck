@@ -7,6 +7,7 @@ use Arrilot\SystemCheck\Checks\Check;
 
 class AppKey extends Check
 {
+    protected $keyLength = 51;
     /**
      * The check description.
      *
@@ -27,8 +28,8 @@ class AppKey extends Check
             return $this->fail('app.key must be set');
         }
 
-        if (strlen($key) !== 32) {
-            return $this->fail('app.key must be a 32 character string');
+        if (strlen($key) !== $this->keyLength) {
+            return $this->fail("app.key must be a {$this->keyLength} character string");
         }
 
         return $this->ok();

@@ -21,7 +21,10 @@ class OptimizedClassLoaderDoesNotExist extends Check
      */
     public function perform()
     {
-        if (file_exists($this->app->getCachedCompilePath())) {
+        if (
+            file_exists($this->app->getCachedPackagesPath()) ||
+            file_exists($this->app->getCachedServicesPath())
+        ) {
             return $this->fail("Run 'php artisan clear-compiled'");
         }
 

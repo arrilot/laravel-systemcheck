@@ -25,9 +25,19 @@
             "Arrilot\\SystemCheck\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "Arrilot\\SystemCheck\\ServiceProvider"
+            ]
+        }
+    },
     "autoload-dev": {
         "psr-4": {
             "Arrilot\\SystemCheck\\Test\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
