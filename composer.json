@@ -12,10 +12,10 @@
     "homepage": "https://github.com/arrilot/laravel-systemcheck",
     "require": {
         "php": ">=5.5.0",
-        "illuminate/support": "5.*",
-        "illuminate/contracts": "5.*",
-        "illuminate/container": "5.*",
-        "illuminate/console": "5.*"
+        "illuminate/support": ">=5",
+        "illuminate/contracts": ">=5",
+        "illuminate/container": ">=5",
+        "illuminate/console": ">=5",
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
